@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import List from '../../components/List';
+import { useAppContext } from '../../context/Context';
+import { StyledListContainer } from '../../components/styles/StyledListContainer';
 
 function ListContainer() {
+	const { currentPage, setCurrentPage } = useAppContext();
 	const [loading, setLoading] = useState(true);
-	const [nextPage, setNextPage] = useState(
-		`https://pokeapi.co/api/v2/pokemon?offset=0&limit=5`
-	);
+	const [nextPage, setNextPage] = useState(null);
 	const [previousPage, setPreviousPage] = useState(null);
 	const [pokemonList, setPokemonList] = useState([]);
 
@@ -25,26 +26,20 @@ function ListContainer() {
 					pokemonInfo.push((await axios.get(pokemon.url)).data);
 				}
 				setPokemonList(pokemonInfo);
+				setCurrentPage(url);
 				setLoading(false);
 			});
 	};
 
 	useEffect(() => {
-		fetchPokemon(nextPage);
-	}, []);
+		fetchPokemon(currentPage);
+	}, [currentPage]);
 
 	if (loading) return <h1 style={{ textAlign: 'center' }}>Loading...</h1>;
 	return (
-		<>
+		<StyledListContainer>
 			<List pokemons={pokemonList} />
-			<div
-				style={{
-					display: 'flex',
-					justifyContent: 'space-around',
-					marginTop: '20px',
-					fontSize: '40px',
-				}}
-			>
+			<div className='buttonsContainer'>
 				{previousPage ? (
 					<span
 						style={{
@@ -52,11 +47,10 @@ function ListContainer() {
 						}}
 						onClick={() => fetchPokemon(previousPage)}
 					>
-						{' '}
-						{'<'}{' '}
+						{'<'}
 					</span>
 				) : (
-					<span></span>
+					<span className='invisible'></span>
 				)}
 				<span
 					onClick={() => fetchPokemon(nextPage)}
@@ -67,7 +61,7 @@ function ListContainer() {
 					{'>'}
 				</span>
 			</div>
-		</>
+		</StyledListContainer>
 	);
 }
 

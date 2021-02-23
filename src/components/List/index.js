@@ -1,15 +1,14 @@
 import React from 'react';
 import PokemonCard from '../PokemonCard';
+import { StyledList } from '../styles/StyledList';
 
 function List({ pokemons }) {
 	return (
-		<div
-			style={{ display: 'flex', justifyContent: 'center', flexWrap: 'wrap' }}
-		>
+		<StyledList>
 			{pokemons.map((pokemon) => (
 				<PokemonCard key={pokemon.id} pokemon={pokemon} />
 			))}
-		</div>
+		</StyledList>
 	);
 }
 

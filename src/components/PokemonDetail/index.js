@@ -1,12 +1,16 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { Bar } from 'react-chartjs-2';
+import { Link } from 'react-router-dom';
 import { useAppContext } from '../../context/Context';
+import { StyledDetail } from '../styles/StyledDetail';
+import { stats } from '../../constants';
 
 function PokemonDetail({ pokemon }) {
 	const [abilities, setAbilities] = useState('');
+	const [mainImage, setMainImage] = useState(
+		pokemon.sprites.other['official-artwork'].front_default
+	);
 	const { language } = useAppContext();
-
-	console.log('pokemon :>> ', pokemon);
 
 	useEffect(() => {
 		setAbilities(
@@ -18,9 +22,9 @@ function PokemonDetail({ pokemon }) {
 					(description) => description.language.name === language
 				);
 				return (
-					<div>
-						<div>{abilityName.name}</div>
-						{abilityDescription.flavor_text}
+					<div className='ability'>
+						<h4>{abilityName.name}</h4>
+						<p>{abilityDescription.flavor_text}</p>
 					</div>
 				);
 			})
@@ -29,7 +33,7 @@ function PokemonDetail({ pokemon }) {
 
 	const data = useMemo(() => {
 		return {
-			labels: pokemon.stats.map((stat) => stat.stat.name.toUpperCase()),
+			labels: stats[language],
 			datasets: [
 				{
 					label: language === 'es' ? 'ESTADISTICAS' : 'STATS',
@@ -43,48 +47,77 @@ function PokemonDetail({ pokemon }) {
 				},
 			],
 		};
-	}, [pokemon]);
+	}, [pokemon, language]);
 
 	return (
-		<div>
-			<h1>{pokemon.name.toUpperCase()}</h1>
-			<div>{language === 'es' ? 'Habilidades' : 'Abilities'}</div>
-			{abilities}
-
-			<img
-				src={pokemon.sprites.other['official-artwork'].front_default}
-				alt=''
-			/>
-			<img
-				src={pokemon.sprites.other.dream_world.front_default}
-				alt=''
-				style={{ width: '96px' }}
-			/>
-			{Object.keys(pokemon.sprites).map((key) => {
-				if (key.includes('default'))
-					return <img src={pokemon.sprites[key]} alt={key} />;
-			})}
-
-			<div style={{ width: '400px', padding: '0 30px' }}>
-				<Bar
-					data={data}
-					width={100}
-					height={100}
-					options={{
-						scales: {
-							yAxes: [
-								{
-									ticks: {
-										max: 100,
-										beginAtZero: true,
-									},
-								},
-							],
-						},
-					}}
+		<StyledDetail>
+			<Link to='/' className='backButton'>
+				{'<'}
+			</Link>
+			<div className='detailTitle'>
+				<h1 style={{ textAlign: 'center' }}>{pokemon.name.toUpperCase()} </h1>
+				<img
+					src={pokemon.sprites.front_default}
+					alt=''
+					style={{ width: '96px' }}
 				/>
 			</div>
-		</div>
+			<div className='container'>
+				<div className='imagesContainer'>
+					<div style={{ width: 400, height: 400 }}>
+						<img
+							src={mainImage}
+							alt=''
+							style={{ width: '100%', height: '100%' }}
+						/>
+					</div>
+					<div className='thumbnails'>
+						<img
+							src={pokemon.sprites.other['official-artwork'].front_default}
+							alt=''
+							style={{ width: '60px' }}
+							onClick={() =>
+								setMainImage(
+									pokemon.sprites.other['official-artwork'].front_default
+								)
+							}
+						/>
+						<img
+							src={pokemon.sprites.other.dream_world.front_default}
+							alt=''
+							style={{ width: '60px' }}
+							onClick={() =>
+								setMainImage(pokemon.sprites.other.dream_world.front_default)
+							}
+						/>
+					</div>
+				</div>
+
+				<div className='abilities'>
+					<h2>{language === 'es' ? 'Habilidades' : 'Abilities'}</h2>
+					{abilities}
+				</div>
+				<div className='statsChart'>
+					<Bar
+						data={data}
+						width={100}
+						height={100}
+						options={{
+							scales: {
+								yAxes: [
+									{
+										ticks: {
+											max: 100,
+											beginAtZero: true,
+										},
+									},
+								],
+							},
+						}}
+					/>
+				</div>
+			</div>
+		</StyledDetail>
 	);
 }
 
