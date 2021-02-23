@@ -18,7 +18,7 @@ function DetailContainer() {
 			setPokemon(res.data);
 			setLoading(false);
 		});
-	}, []);
+	}, [id]);
 
 	if (loading) return <h1>Loading...</h1>;
 

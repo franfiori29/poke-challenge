@@ -14,7 +14,7 @@ function PokemonDetail({ pokemon }) {
 
 	useEffect(() => {
 		setAbilities(
-			pokemon.abilities.map((ability) => {
+			pokemon.abilities.map((ability, i) => {
 				let abilityName = ability.names.find(
 					(abilityName) => abilityName.language.name === language
 				);
@@ -22,7 +22,7 @@ function PokemonDetail({ pokemon }) {
 					(description) => description.language.name === language
 				);
 				return (
-					<div className='ability'>
+					<div className='ability' key={i}>
 						<h4>{abilityName.name}</h4>
 						<p>{abilityDescription.flavor_text}</p>
 					</div>

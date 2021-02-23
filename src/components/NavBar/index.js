@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { useAppContext } from '../../context/Context';
 import { StyledNavBar } from '../styles/StyledNavBar';
 
-const NavBar = ({}) => {
+const NavBar = () => {
 	const { language, setLanguage, resetPage } = useAppContext();
 	return (
 		<StyledNavBar>
