@@ -13,11 +13,16 @@ export const StyledNavBar = styled.nav`
 		max-width: 1200px;
 		margin: 0 auto;
 		font-size: 20px;
+
+		& > div {
+			cursor: pointer;
+		}
 	}
 
 	img {
 		transition: all 3s ease-in-out;
 		transform: rotate(0);
+		width: 3em;
 		&:hover {
 			transform: rotate(1080deg);
 		}

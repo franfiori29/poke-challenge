@@ -8,6 +8,10 @@ export const StyledListContainer = styled.div`
 		margin-top: 20px;
 		font-size: 40px;
 
+		& > span {
+			cursor: pointer;
+		}
+
 		.invisible {
 			visibility: hidden;
 		}

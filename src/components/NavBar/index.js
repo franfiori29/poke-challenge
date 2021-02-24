@@ -9,16 +9,9 @@ const NavBar = () => {
 		<StyledNavBar>
 			<div className='container'>
 				<Link to='/' onClick={resetPage}>
-					<img
-						src='/images/pokeball.png'
-						alt='pokeball logo'
-						style={{ width: '3em' }}
-					/>
+					<img src='/images/pokeball.png' alt='pokeball logo' />
 				</Link>
-				<div
-					style={{ cursor: 'pointer' }}
-					onClick={() => setLanguage(language === 'es' ? 'en' : 'es')}
-				>
+				<div onClick={() => setLanguage(language === 'es' ? 'en' : 'es')}>
 					{language.toUpperCase()}
 				</div>
 			</div>

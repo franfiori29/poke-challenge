@@ -5,6 +5,7 @@ import { useAppContext } from '../../context/Context';
 import { StyledListContainer } from '../../components/styles/StyledListContainer';
 import { getPageNumberFromUrl, goToPage } from '../../constants';
 import Pagination from '../../components/Pagination';
+import { StyledLoader } from '../../components/styles/StyledLoader';
 
 function ListContainer() {
 	const { currentPage, setCurrentPage } = useAppContext();
@@ -40,20 +41,13 @@ function ListContainer() {
 		fetchPokemon(currentPage);
 	}, [currentPage, fetchPokemon]);
 
-	if (loading) return <h1 style={{ textAlign: 'center' }}>Loading...</h1>;
+	if (loading) return <StyledLoader />;
 	return (
 		<StyledListContainer>
 			<List pokemons={pokemonList} />
 			<div className='buttonsContainer'>
 				{previousPage ? (
-					<span
-						style={{
-							cursor: 'pointer',
-						}}
-						onClick={() => setCurrentPage(previousPage)}
-					>
-						{'<'}
-					</span>
+					<span onClick={() => setCurrentPage(previousPage)}>{'<'}</span>
 				) : (
 					<span className='invisible'></span>
 				)}
@@ -63,14 +57,7 @@ function ListContainer() {
 					setCurrentPage={setCurrentPage}
 					getPageNumberFromUrl={getPageNumberFromUrl}
 				/>
-				<span
-					onClick={() => setCurrentPage(nextPage)}
-					style={{
-						cursor: 'pointer',
-					}}
-				>
-					{'>'}
-				</span>
+				<span onClick={() => setCurrentPage(nextPage)}>{'>'}</span>
 			</div>
 			{/* <div
 				onClick={() => {

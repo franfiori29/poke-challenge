@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import axios from 'axios';
 import PokemonDetail from '../../components/PokemonDetail';
+import { StyledLoader } from '../../components/styles/StyledLoader';
 
 function DetailContainer() {
 	const { id } = useParams();
@@ -20,7 +21,7 @@ function DetailContainer() {
 		});
 	}, [id]);
 
-	if (loading) return <h1>Loading...</h1>;
+	if (loading) return <StyledLoader />;
 
 	return <PokemonDetail pokemon={pokemon} />;
 }
