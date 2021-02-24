@@ -55,27 +55,18 @@ function PokemonDetail({ pokemon }) {
 				{'<'}
 			</Link>
 			<div className='detailTitle'>
-				<h1 style={{ textAlign: 'center' }}>{pokemon.name.toUpperCase()} </h1>
-				<img
-					src={pokemon.sprites.front_default}
-					alt=''
-					style={{ width: '96px' }}
-				/>
+				<h1>{pokemon.name.toUpperCase()} </h1>
+				<img src={pokemon.sprites.front_default} alt='' />
 			</div>
 			<div className='container'>
 				<div className='imagesContainer'>
-					<div style={{ width: 400, height: 400 }}>
-						<img
-							src={mainImage}
-							alt=''
-							style={{ width: '100%', height: '100%' }}
-						/>
+					<div className='mainImage'>
+						<img src={mainImage} alt='' />
 					</div>
 					<div className='thumbnails'>
 						<img
 							src={pokemon.sprites.other['official-artwork'].front_default}
 							alt=''
-							style={{ width: '60px' }}
 							onClick={() =>
 								setMainImage(
 									pokemon.sprites.other['official-artwork'].front_default
@@ -85,7 +76,6 @@ function PokemonDetail({ pokemon }) {
 						<img
 							src={pokemon.sprites.other.dream_world.front_default}
 							alt=''
-							style={{ width: '60px' }}
 							onClick={() =>
 								setMainImage(pokemon.sprites.other.dream_world.front_default)
 							}

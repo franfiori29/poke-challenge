@@ -33,8 +33,13 @@ export const StyledDetail = styled.div`
 		align-items: center;
 		justify-content: center;
 		padding-top: 2em;
+
+		img {
+			width: 90px;
+		}
+
 		@media (max-width: 500px) {
-			font-size: 0.7em;
+			font-size: 0.6em;
 		}
 	}
 
@@ -71,6 +76,22 @@ export const StyledDetail = styled.div`
 	}
 	.imagesContainer {
 		order: 2;
+
+		.mainImage {
+			width: 400px;
+			height: 400px;
+
+			img {
+				width: 100%;
+				height: 100%;
+			}
+
+			@media (max-width: 450px) {
+				width: 300px;
+				height: 300px;
+			}
+		}
+
 		& > img {
 			width: 100%;
 		}
@@ -79,6 +100,7 @@ export const StyledDetail = styled.div`
 			justify-content: center;
 
 			img {
+				width: 60px;
 				margin: 0 0.8em;
 				cursor: pointer;
 				transition: all 0.2s linear;

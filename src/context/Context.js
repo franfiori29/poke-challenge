@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { firstPage } from '../constants';
 
 export const AppContext = React.createContext({});
@@ -6,10 +6,15 @@ export const AppContext = React.createContext({});
 export const useAppContext = () => useContext(AppContext);
 
 export const AppProvider = ({ children }) => {
-	const [language, setLanguage] = useState('es');
+	const [language, setLanguage] = useState(
+		localStorage.getItem('language') ?? 'es'
+	);
 	const [currentPage, setCurrentPage] = useState(firstPage);
 	const resetPage = () => setCurrentPage(firstPage);
-	const [stats, setStats] = useState([]);
+
+	useEffect(() => {
+		localStorage.setItem('language', language);
+	}, [language]);
 
 	return (
 		<AppContext.Provider
@@ -19,8 +24,6 @@ export const AppProvider = ({ children }) => {
 				currentPage,
 				setCurrentPage,
 				resetPage,
-				stats,
-				setStats,
 			}}
 		>
 			{children}
